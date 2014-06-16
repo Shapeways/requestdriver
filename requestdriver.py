@@ -50,8 +50,7 @@ class RequestDriver(object):
             'files': post_files,
             'data': data,
             'verify': self.verify_certificates,
-
-            }
+        }
 
         if method == self.POST:
             response = self.session.post(uri, **kwargs)
@@ -96,15 +95,16 @@ class RequestDriver(object):
         return self.save_response_to_file(response, filename)
 
     def save_response_to_file(self, response, filename):
-        """Saves the body of the last response to a file
+        """Saves the body of a given response to a file
 
+        :type response: requests.Response
+        :param response: Response to save
         :param filename: Filename to save to
         :return: Returns False if there is an OS error, True if successful
         """
         try:
-            last_response = self.get_last_response()
             with open(filename, 'w') as f:
-                f.write(last_response.content)
+                f.write(response.content)
         except OSError, e:
             return False
         return True
