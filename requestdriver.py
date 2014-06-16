@@ -4,6 +4,7 @@ and keep a history of responses in a queue
 """
 
 import requests
+
 from collections import deque
 
 
@@ -33,14 +34,14 @@ class RequestDriver(object):
     def request(self, uri, method=GET, headers=None, cookies=None, params=None, data=None, post_files=None):
         """Makes a request
 
-        :param uri: The uri to send request
-        :param method: Method to use to send request
-        :param headers: Any headers to send with request
-        :param cookies: Request cookies (in addition to session cookies)
-        :param params: Request parameters
-        :param data: Request data
-        :rtype: requests.Response
-        :return: The response
+        @param uri: The uri to send request
+        @param method: Method to use to send request
+        @param headers: Any headers to send with request
+        @param cookies: Request cookies (in addition to session cookies)
+        @param params: Request parameters
+        @param data: Request data
+        @rtype: requests.Response
+        @return: The response
         """
 
         kwargs = {
@@ -50,7 +51,8 @@ class RequestDriver(object):
             'files': post_files,
             'data': data,
             'verify': self.verify_certificates,
-        }
+
+            }
 
         if method == self.POST:
             response = self.session.post(uri, **kwargs)
@@ -81,30 +83,29 @@ class RequestDriver(object):
     def wipe_session(self):
         """Sets the driver's session to a new request session
 
-        :return: None
+        @return: None
         """
         self.session = requests.Session()
 
     def save_last_response_to_file(self, filename):
         """Saves the body of the last response to a file
 
-        :param filename: Filename to save to
-        :return: Returns False if there is an OS error, True if successful
+        @param filename: Filename to save to
+        @return: Returns False if there is an OS error, True if successful
         """
         response = self.get_last_response()
         return self.save_response_to_file(response, filename)
 
     def save_response_to_file(self, response, filename):
-        """Saves the body of a given response to a file
+        """Saves the body of the last response to a file
 
-        :type response: requests.Response
-        :param response: Response to save
-        :param filename: Filename to save to
-        :return: Returns False if there is an OS error, True if successful
+        @param filename: Filename to save to
+        @return: Returns False if there is an OS error, True if successful
         """
         try:
+            last_response = self.get_last_response()
             with open(filename, 'w') as f:
-                f.write(response.content)
+                f.write(last_response.content)
         except OSError, e:
             return False
         return True
