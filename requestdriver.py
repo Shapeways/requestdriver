@@ -48,6 +48,7 @@ class RequestDriver(object):
             'files': post_files,
             'data': data,
             'verify': self.verify_certificates,
+        }
 
             }
 
