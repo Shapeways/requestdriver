@@ -81,12 +81,12 @@ class RequestDriver(object):
         """Saves the body of the last response to a file
 
         @param filename: Filename to save to
+        @throws: OSError
         @return: Returns False if there is an OS error, True if successful
         """
-        try:
-            last_response = self.get_last_response()
-            with open(filename, 'w') as f:
-                f.write(last_response.content)
-        except OSError, e:
+        if not response:
             return False
+
+        with open(filename, 'w') as f:
+            f.write(response.content)
         return True
