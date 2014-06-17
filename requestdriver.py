@@ -53,9 +53,6 @@ class RequestDriver(object):
         response = self.session.request(method, uri, **kwargs)
         self.responses.append(response)
 
-        while len(self.responses) > self.max_response_history:
-            self.responses.popleft()
-
         return response
 
     def get_last_response(self):
