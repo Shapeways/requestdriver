@@ -57,10 +57,9 @@ class RequestDriver(object):
 
     def get_last_response(self):
         """Convenience method for retrieving the last response"""
-        try:
-            return self.responses[-1]
-        except IndexError:
-            return None
+        if len(self.response):
+            return self.response.pop()
+        return None
 
     def wipe_session(self):
         """Sets the driver's session to a new request session
