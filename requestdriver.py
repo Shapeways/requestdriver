@@ -50,20 +50,7 @@ class RequestDriver(object):
             'verify': self.verify_certificates,
         }
 
-            }
-
-        if method == self.POST:
-            response = self.session.post(uri, **kwargs)
-
-        elif method == self.PUT:
-            response = self.session.put(uri, **kwargs)
-
-        elif method == self.DELETE:
-            response = self.session.delete(uri, **kwargs)
-
-        else:  # Default to GET
-            response = self.session.get(uri, **kwargs)
-
+        response = self.session.request(method, uri, **kwargs)
         self.responses.append(response)
 
         while len(self.responses) > self.max_response_history:
