@@ -16,15 +16,12 @@ class RequestDriver(object):
     DELETE = 'DELETE'
 
     session = None
-    responses = deque([])
-    max_response_history = 100
+    responses = None
 
-    def __init__(self, persist_session_between_requests=True, max_response_history=None, verify_certificates=False):
+    def __init__(self, persist_session_between_requests=True, max_response_history=100, verify_certificates=False):
         self.persist_session_between_requests = persist_session_between_requests
         self.verify_certificates = verify_certificates
-        if max_response_history is not None:
-            if not max_response_history >= 0:
-                raise ValueError('You must specify a positive integer as a max number of past requests to store')
+        self.responses = deque([], maxlen=max_response_history)
 
         if self.persist_session_between_requests:
             self.session = requests.Session()
