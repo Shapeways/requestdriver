@@ -16,15 +16,12 @@ class RequestDriver(object):
     DELETE = 'DELETE'
 
     session = None
-    responses = deque([])
-    max_response_history = 100
+    responses = None
 
-    def __init__(self, persist_session_between_requests=True, max_response_history=None, verify_certificates=False):
+    def __init__(self, persist_session_between_requests=True, max_response_history=100, verify_certificates=False):
         self.persist_session_between_requests = persist_session_between_requests
         self.verify_certificates = verify_certificates
-        if max_response_history is not None:
-            if not max_response_history >= 0:
-                raise ValueError('You must specify a positive integer as a max number of past requests to store')
+        self.responses = deque([], maxlen=max_response_history)
 
         if self.persist_session_between_requests:
             self.session = requests.Session()
@@ -51,25 +48,10 @@ class RequestDriver(object):
             'files': post_files,
             'data': data,
             'verify': self.verify_certificates,
+        }
 
-            }
-
-        if method == self.POST:
-            response = self.session.post(uri, **kwargs)
-
-        elif method == self.PUT:
-            response = self.session.put(uri, **kwargs)
-
-        elif method == self.DELETE:
-            response = self.session.delete(uri, **kwargs)
-
-        else:  # Default to GET
-            response = self.session.get(uri, **kwargs)
-
+        response = self.session.request(method, uri, **kwargs)
         self.responses.append(response)
-
-        while len(self.responses) > self.max_response_history:
-            self.responses.popleft()
 
         return response
 
@@ -100,12 +82,12 @@ class RequestDriver(object):
         """Saves the body of the last response to a file
 
         @param filename: Filename to save to
+        @throws: OSError
         @return: Returns False if there is an OS error, True if successful
         """
-        try:
-            last_response = self.get_last_response()
-            with open(filename, 'w') as f:
-                f.write(last_response.content)
-        except OSError, e:
+        if not response:
             return False
+
+        with open(filename, 'w') as f:
+            f.write(response.content)
         return True
