@@ -7,7 +7,6 @@ setup(
     version='0.1.0',
     author='Shapeways',
     author_email='api@shapeways.com',
-    packages=find_packages(),
     install_requires=[
         'requests==2.2.1',
     ],
