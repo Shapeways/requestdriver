@@ -10,7 +10,8 @@ setup(
     install_requires=[
         'requests',
     ],
-    test_requires=[
+    tests_require=[
+        'requests',
         'mock'
     ],
     setup_requires=[],
