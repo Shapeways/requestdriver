@@ -11,9 +11,9 @@ setup(
         'requests',
     ],
     tests_require=[
-        'requests',
         'mock'
     ],
+    test_suite='testing.tests',
     setup_requires=[],
     description='Python requests wrapper for making session-based requests with some useful methods',
     url='http://gitlab.nyc.shapeways.net/quality/requestdriver',
