@@ -8,7 +8,7 @@ setup(
     author='Shapeways',
     author_email='api@shapeways.com',
     install_requires=[
-        'requests==2.2.1',
+        'requests',
     ],
     setup_requires=[],
     description='Python requests wrapper for making session-based requests with some useful methods',

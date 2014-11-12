@@ -28,7 +28,7 @@ class RequestDriver(object):
         else:
             self.session = requests
 
-    def request(self, uri, method=GET, headers=None, cookies=None, params=None, data=None, post_files=None):
+    def request(self, uri, method=GET, headers=None, cookies=None, params=None, data=None, files=None):
         """Makes a request
 
         @param uri: The uri to send request
@@ -42,15 +42,17 @@ class RequestDriver(object):
         """
 
         kwargs = {
+            'uri': uri,
+            'method': method,
             'headers': headers,
             'cookies': cookies,
             'params': params,
-            'files': post_files,
+            'files': files,
             'data': data,
             'verify': self.verify_certificates,
         }
 
-        response = self.session.request(method, uri, **kwargs)
+        response = self.session.request(**kwargs)
         self.responses.append(response)
 
         return response
