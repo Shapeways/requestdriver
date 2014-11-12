@@ -1,6 +1,6 @@
 from requestdriver import RequestDriver
 from testing.stubs import SessionStub
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestRequestDriver(TestCase):
