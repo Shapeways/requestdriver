@@ -4,8 +4,10 @@ from unittest2 import TestCase
 
 
 class TestRequestDriver(TestCase):
+    """Tests for RequestDriver methods"""
 
     def setUp(self):
+        """Setup the data for each test method"""
 
         class data(object):
             requestdriver = RequestDriver()
@@ -65,7 +67,7 @@ class TestRequestDriver(TestCase):
         self.assertNotEqual(old_session, new_session)
 
     def test_method_save_last_response_to_file(self):
-        """"""
+        """No logic worth testing"""
 
     def test_method_save_response_to_file(self):
-        """"""
+        """No logic worth testing"""
