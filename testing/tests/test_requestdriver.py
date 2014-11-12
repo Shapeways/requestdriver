@@ -36,3 +36,36 @@ class TestRequestDriver(TestCase):
             'verify': self.data.requestdriver.verify_certificates
         })
         session_stub.request.assert_called_once_with(**kwargs)
+
+    def test_method_get_last_response_with_responses(self):
+        """Tests that trying to access the last response returns the last response"""
+        responses = []
+        for i in xrange(0, 10):
+            responses.append(i)
+
+        self.data.requestdriver.responses = responses
+        last_response = self.data.requestdriver.get_last_response()
+
+        self.assertEqual(i, last_response)
+
+    def test_method_get_last_response_with_no_responses(self):
+        """Tests that trying to access the last response with no responses returns None (not error)"""
+        self.data.requestdriver.responses = []
+        last_response = self.data.requestdriver.get_last_response()
+
+        self.assertIs(None, last_response)
+
+    def test_method_wipe_session(self):
+        """Tests that the session is no longer the old session"""
+        old_session = 'old session'
+        self.data.requestdriver.session = old_session
+        self.data.requestdriver.wipe_session()
+
+        new_session = self.data.requestdriver.session
+        self.assertNotEqual(old_session, new_session)
+
+    def test_method_save_last_response_to_file(self):
+        """"""
+
+    def test_method_save_response_to_file(self):
+        """"""
