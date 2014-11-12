@@ -1,5 +1,6 @@
 from mock import Mock
 
+
 class ResponseStub(object):
 
     pass
