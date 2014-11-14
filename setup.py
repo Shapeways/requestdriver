@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name='requestdriver',
@@ -16,6 +16,6 @@ setup(
     test_suite='testing.tests',
     setup_requires=[],
     description='Python requests wrapper for making session-based requests with some useful methods',
-    url='http://gitlab.nyc.shapeways.net/quality/requestdriver',
+    url='https://github.com/shapeways/requestdriver',
 )
 
