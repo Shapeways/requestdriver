@@ -1,5 +1,7 @@
+import mock
+import requestdriver
 from requestdriver import RequestDriver
-from testing.stubs import SessionStub
+from testing.stubs import SessionStub, ResponseStub
 from unittest import TestCase
 
 
@@ -70,4 +72,20 @@ class TestRequestDriver(TestCase):
         """No logic worth testing"""
 
     def test_method_save_response_to_file(self):
-        """No logic worth testing"""
+        """Tests that we write to the correct file and with the correct content for a given response"""
+        test_content = 'stubbed response content'
+        fake_filename = 'fakefile'
+
+        m = mock.mock_open()
+        with mock.patch('__builtin__.open', m) as mock_open:
+            response = ResponseStub()
+            response.content = test_content
+
+            self.data.requestdriver.save_response_to_file(response, fake_filename)
+
+            # Test the correct filename was opened
+            mock_open.assert_called_once_with(fake_filename, 'w')
+
+            # Test that the file was written to with correct content
+            file_handle = mock_open.return_value.__enter__.return_value
+            file_handle.write.assert_called_with(test_content)
