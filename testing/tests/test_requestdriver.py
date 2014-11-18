@@ -1,8 +1,9 @@
-import mock
-import requestdriver
-from requestdriver import RequestDriver
-from testing.stubs import SessionStub, ResponseStub
 from unittest import TestCase
+
+import mock
+from requestdriver import RequestDriver
+
+from testing.stubs import SessionStub, ResponseStub
 
 
 class TestRequestDriver(TestCase):
