@@ -70,7 +70,15 @@ class TestRequestDriver(TestCase):
         self.assertNotEqual(old_session, new_session)
 
     def test_method_save_last_response_to_file(self):
-        """No logic worth testing"""
+        """Tests that the save to file is called with last response"""
+        response = 100
+        filename = 99
+
+        self.data.requestdriver.get_last_response = mock.Mock(return_value=response)
+        self.data.requestdriver.save_response_to_file = mock.Mock()
+
+        self.data.requestdriver.save_last_response_to_file(filename)
+        self.data.requestdriver.save_response_to_file.assert_called_with(response, filename)
 
     def test_method_save_response_to_file(self):
         """Tests that we write to the correct file and with the correct content for a given response"""
