@@ -1,6 +1,8 @@
 requestdriver
 =============
 
+[![Build Status](https://travis-ci.org/Shapeways/requestdriver.svg?branch=master)](https://travis-ci.org/Shapeways/requestdriver)
+
 Python requests wrapper for making session-based requests and some extra sprinkling of love.
 
 Instantiating a new RequestDriver will store a session on the instance and use that session to make all requests, the
