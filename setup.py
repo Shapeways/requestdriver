@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='requestdriver',
-    version='0.1.0',
+    version='0.1.1',
     author='Shapeways',
     author_email='api@shapeways.com',
     install_requires=[
